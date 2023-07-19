@@ -1,43 +1,62 @@
 #include <iostream>
 #include <random>
 #include <vector>
+#include <iomanip> 
+
 int minNumber;
 int maxNumber;
 int amount;
+int option = 1;
 
 void Questiongrid(int minNumber, int maxNumber, int amount) {
-    system("CLS");
 
-    std::cout << "                _________________                _________________                _________________\n";
-    std::cout << "                From: " << minNumber;
-    std::cout << "                          Till: " << maxNumber;
-    std::cout << "                          Amount: " << amount << "\n";
+    if (option == 1) {
+        system("CLS");
+        std::cout << "                  Type a number";
+        std::cout << "\n                _________________                _________________                _________________\n";
+        std::cout << "                From: " << std::setw(21) << std::left << minNumber;
+        std::cout << "      Till: " << std::setw(21) << std::left << maxNumber;
+        std::cout << "      Amount: " << std::setw(21) << std::left << amount << "\n";
+    }
+    else if (option == 2){
+        system("CLS");
+        std::cout << "                                                   Type a number";
+        std::cout << "\n                _________________                _________________                _________________\n";
+        std::cout << "                From: " << std::setw(21) << std::left << minNumber;
+        std::cout << "      Till: " << std::setw(21) << std::left << maxNumber;
+        std::cout << "      Amount: " << std::setw(21) << std::left << amount << "\n";
+    }
+    else if (option == 3) {
+        system("CLS");
+        std::cout << "                                                                                    Type a number";
+        std::cout << "\n                _________________                _________________                _________________\n";
+        std::cout << "                From: " << std::setw(21) << std::left << minNumber;
+        std::cout << "      Till: " << std::setw(21) << std::left << maxNumber;
+        std::cout << "      Amount: " << std::setw(21) << std::left << amount << "\n";
+    }
+    else {
+        system("CLS");
+        std::cout << "\n                _________________                _________________                _________________\n";
+        std::cout << "                From: " << std::setw(21) << std::left << minNumber;
+        std::cout << "      Till: " << std::setw(21) << std::left << maxNumber;
+        std::cout << "      Amount: " << std::setw(21) << std::left << amount << "\n";
+    }
 
+    std::cout << "\n";
 }
-
 void randomnumbergenerator(std::vector<int>& saves) {
-
-    Questiongrid(minNumber, maxNumber, amount);
-    std::cin >> minNumber;
-    Questiongrid(minNumber, maxNumber, amount);
-    std::cin >> maxNumber;
-    Questiongrid(minNumber, maxNumber, amount);
-    std::cin >> amount;
-    Questiongrid(minNumber, maxNumber, amount);
-
     std::random_device rd;
     std::mt19937 generator(rd());
     std::uniform_int_distribution<int> distribution(minNumber, maxNumber);
-    std::cout << "\n\n";
+    std::cout << "\n";
+    std::cout << "\n                                                  ________________\n";
+    std::cout << "                                                   Random numbers\n\n\n";
     for (int i = 0; i < amount; i++) {
         int randomNumber = distribution(generator);
         saves.push_back(randomNumber);
         std::cout << saves[i] << " ";
     }
-    std::cout << "\n------------------------------------------------------------------------------------------------------------------\n";
-
 }
-
 void bubbleSort(std::vector<int>& saves) {
     int size = saves.size();
     for (int i = 0; i < size - 1; i++) {
@@ -45,19 +64,30 @@ void bubbleSort(std::vector<int>& saves) {
             if (saves[j] > saves[j + 1]) {
                 int temp = saves[j];
                 saves[j] = saves[j + 1];
-                saves[j + 1] = temp;
-            
+                saves[j + 1] = temp; 
             }
         }
     }
 }
-
 int main() {
     std::vector<int> saves;
 
     do {
+
+        Questiongrid(minNumber, maxNumber, amount);
+        std::cin >> minNumber;
+        option = 2;
+        Questiongrid(minNumber, maxNumber, amount);
+        std::cin >> maxNumber;
+        option = 3;
+        Questiongrid(minNumber, maxNumber, amount);
+        std::cin >> amount;
+        option = 0;
+        Questiongrid(minNumber, maxNumber, amount);
+
         randomnumbergenerator(saves);
-        std::cout << "\n\nready to sort? [Yes/No]\n\n";
+        std::cout << "\n\n\n                                               Ready to sort? [Yes/No]\n";
+        std::cout << "                                              _________________________\n";
         std::string ans;
         std::cin >> ans;
 
@@ -68,10 +98,12 @@ int main() {
     } while (true);
 
     int size = saves.size();
-    std::cout << "\n------------------------------------------------------------------------------------------------------------------\n";
+    system("CLS");
+    Questiongrid(minNumber, maxNumber, amount);
+    std::cout << "\n                                                  ________________\n";
+    std::cout << "                                                   Sorted numbers\n\n\n";
     for (int i = 0; i < size; i++) {
         std::cout << saves[i] << " ";
     }
     std::cout << "\n";
-
 }
